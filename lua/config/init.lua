@@ -1,0 +1,6 @@
+require"config.colorscheme"
+require"config.linenumbers"
+require"config.keybindings"
+require"config.font"
+require"config.font"
+require"config.neovide"
