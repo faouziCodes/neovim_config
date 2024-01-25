@@ -12,5 +12,7 @@ return {
 	require("plugins.lsp_zeroplugin"),
 	require("plugins.none-ls"),
 	-- require("plugins.hover_config")
-	require("plugins.tokyodarknvim")
+	require("plugins.tokyodarknvim"),
+--	require("plugins.ai"),
+	require("plugins.lspkind_plugin")
 }
