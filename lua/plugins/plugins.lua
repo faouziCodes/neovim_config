@@ -13,6 +13,16 @@ return {
 	require("plugins.none-ls"),
 	-- require("plugins.hover_config")
 	require("plugins.tokyodarknvim"),
---	require("plugins.ai"),
-	require("plugins.lspkind_plugin")
+	require("plugins.ai"),
+	require("plugins.lspkind_plugin"),
+	{ "savq/melange-nvim" },
+	{
+	  "j-hui/fidget.nvim",
+	  opts = {
+	  },
+	  config= function ()
+		local fidget = require("fidget")
+		fidget.setup {}
+	  end
+	}
 }

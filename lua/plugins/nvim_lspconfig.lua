@@ -4,6 +4,7 @@ return {
 		local lsp_zero = require("lsp-zero")
 		lsp_zero.extend_lspconfig()
 
+
 		local lspconfig = require("lspconfig")
 		lspconfig.lua_ls.setup({
 			Lua = {
@@ -12,6 +13,8 @@ return {
 		})
 		lspconfig.pyright.setup({})
 		lspconfig.tsserver.setup({})
+		lspconfig.ocamllsp.setup({})
+		lspconfig.templ.setup({})
 		lspconfig.rust_analyzer.setup({
 			-- Server-specific settings. See `:help lspconfig-setup`
 			settings = {
@@ -19,7 +22,18 @@ return {
 			},
 		})
 		lspconfig.intelephense.setup({})
+		lspconfig.html.setup({
+		    on_attach = on_attach,
+		    capabilities = capabilities,
+		    filetypes = { "html", "templ" },
+		})
+		lspconfig.htmx.setup({
+		    on_attach = on_attach,
+		    capabilities = capabilities,
+		    filetypes = { "html", "templ" },
+		})
 
+		vim.filetype.add({ extension = { templ = "templ" } })
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
