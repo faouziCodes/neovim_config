@@ -4,17 +4,35 @@ return {
 		local lsp_zero = require("lsp-zero")
 		lsp_zero.extend_lspconfig()
 
-
 		local lspconfig = require("lspconfig")
+
+
+		local group = vim.api.nvim_create_namespace("laralsp")
+
+		vim.api.nvim_clear_autocmds({ group = group })
+		vim.api.nvim_create_autocmd("FileType", {
+			group = group,
+			pattern = { "blade", "php" },
+			callback = function()
+				vim.lsp.start({
+					name = "laralsp",
+					cmd = { "/Users/faouzibouchkachekh/Faouzi/Rust/laralsp/target/release/laralsp" },
+					root_dir = vim.fs.find({ "composer.json" }, { upwards = true })[1],
+				})
+			end,
+		})
+
 		lspconfig.lua_ls.setup({
 			Lua = {
 				globals = { "vim" },
 			},
 		})
+		lspconfig.sourcekit.setup{}
 		lspconfig.pyright.setup({})
 		lspconfig.tsserver.setup({})
 		lspconfig.ocamllsp.setup({})
 		lspconfig.templ.setup({})
+		lspconfig.gopls.setup({})
 		lspconfig.rust_analyzer.setup({
 			-- Server-specific settings. See `:help lspconfig-setup`
 			settings = {
@@ -23,17 +41,18 @@ return {
 		})
 		lspconfig.intelephense.setup({})
 		lspconfig.html.setup({
-		    on_attach = on_attach,
-		    capabilities = capabilities,
-		    filetypes = { "html", "templ" },
+			on_attach = on_attach,
+			capabilities = capabilities,
+			filetypes = { "html", "templ" },
 		})
 		lspconfig.htmx.setup({
-		    on_attach = on_attach,
-		    capabilities = capabilities,
-		    filetypes = { "html", "templ" },
+			on_attach = on_attach,
+			capabilities = capabilities,
+			filetypes = { "html", "templ" },
 		})
 
 		vim.filetype.add({ extension = { templ = "templ" } })
+		vim.filetype.add({ extension = { php = "php" } })
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
